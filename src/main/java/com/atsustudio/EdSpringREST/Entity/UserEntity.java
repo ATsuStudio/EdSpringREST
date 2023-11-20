@@ -35,8 +35,8 @@ public class UserEntity {
     public String get_username() {
         return _username;
     }
-
     public String get_password() {
         return _password;
     }
+
 }
