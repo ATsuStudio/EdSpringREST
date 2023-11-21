@@ -1,9 +1,9 @@
 package com.atsustudio.EdSpringREST.Entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.atsustudio.EdSpringREST.Models.TaskModel;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 public class UserEntity {
@@ -13,7 +13,18 @@ public class UserEntity {
     private String _username;
     private String _password;
 
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "_user")
+    private List<TaskEntity> _tasks;
+
+
     public UserEntity() {
+    }
+
+
+
+    public void setTasks(List<TaskEntity> tasks) {
+        this._tasks = tasks;
     }
 
     public void set_id(Long _id) {
@@ -28,6 +39,10 @@ public class UserEntity {
         this._password = _password;
     }
 
+
+
+    public List<TaskEntity> getTasks() { return _tasks; }
+
     public Long get_id() {
         return _id;
     }
@@ -35,6 +50,7 @@ public class UserEntity {
     public String get_username() {
         return _username;
     }
+
     public String get_password() {
         return _password;
     }

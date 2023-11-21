@@ -1,7 +1,7 @@
 package com.atsustudio.EdSpringREST.Services;
 
 import com.atsustudio.EdSpringREST.Entity.UserEntity;
-import com.atsustudio.EdSpringREST.Exceptions.IncorrectPassword;
+import com.atsustudio.EdSpringREST.Exceptions.IncorrectPasswordException;
 import com.atsustudio.EdSpringREST.Exceptions.UserAlreadyExistException;
 import com.atsustudio.EdSpringREST.Exceptions.UserNotFoundException;
 import com.atsustudio.EdSpringREST.Repository.UserRepository;
@@ -19,7 +19,7 @@ public class AuthService {
         }
         return userRepository.save(userEntity);
     }
-    public String singin(UserEntity userEntity) throws UserNotFoundException, IncorrectPassword {
+    public String singin(UserEntity userEntity) throws UserNotFoundException, IncorrectPasswordException {
         String token = "Bearer GeneratedSomeToken-"+userEntity.get_username()+"-"+userEntity.get_password();
 
         if(userRepository.findBy_username(userEntity.get_username()) ==null){
@@ -29,7 +29,7 @@ public class AuthService {
         UserEntity existUser = userRepository.findBy_username(userEntity.get_username());
 
         if( !(existUser.get_password()).equals(userEntity.get_password())){
-            throw new IncorrectPassword("Incorrect password");
+            throw new IncorrectPasswordException("Incorrect password");
         }
 
         return token;

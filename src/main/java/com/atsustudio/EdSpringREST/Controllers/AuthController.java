@@ -1,7 +1,7 @@
 package com.atsustudio.EdSpringREST.Controllers;
 
 import com.atsustudio.EdSpringREST.Entity.UserEntity;
-import com.atsustudio.EdSpringREST.Exceptions.IncorrectPassword;
+import com.atsustudio.EdSpringREST.Exceptions.IncorrectPasswordException;
 import com.atsustudio.EdSpringREST.Exceptions.UserAlreadyExistException;
 import com.atsustudio.EdSpringREST.Exceptions.UserNotFoundException;
 import com.atsustudio.EdSpringREST.Services.AuthService;
@@ -39,7 +39,7 @@ public class AuthController {
             token = authService.singin(user);
             return ResponseEntity.status(200).body(token);
         }
-        catch (IncorrectPassword err) {
+        catch (IncorrectPasswordException err) {
             return ResponseEntity.status(401).body(err.getMessage());
         }
         catch (UserNotFoundException err) {
